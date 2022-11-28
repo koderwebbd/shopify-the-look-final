@@ -1,0 +1,440 @@
+{% comment %}Updated by KoderWeb 02-Nov-22{% endcomment %}
+<section class="page-width" data-section-id="{{ section.id }}" data-section-type="shop-point">
+ 
+    {% comment %}{% if section.settings.title != blank %}
+    <div class="row d-block mx-0">
+        <div class="headline-featured">
+          {{ section.settings.title | escape }}
+        </div>
+    </div>
+    {% endif %}{% endcomment %}
+
+  	
+    <div class="shop-look-wrapper" shop-look>
+
+      {% if section.settings.image != blank %}
+    	<div class="sl-image desktop" {% if section.settings.image %}style="  --aspect-ratio: {{ section.settings.image.aspect_ratio }}"{% endif %}>
+    		{% if section.settings.image != blank %}
+    			<img class="shop-image" src="{{ section.settings.image | img_url: '1920x' }}" alt="{{ section.settings.image.alt | escape }}">
+    		{% else %}
+
+    		{% endif %}	
+    		{% if section.blocks.size > 0 %}
+    			{% for block in section.blocks %}
+    					{%- assign product = all_products[block.settings.product] -%}
+
+    					<div class="ShopThePoint_Area {% if block.settings.active_product == true %}active_always{% endif %}" style="left: {{ block.settings.horizontal_position }}%; top: {{ block.settings.vertical_position }}%" >
+    						<a href="{{ product.url }}" class="ShopThePoint"></a>
+                
+
+                {%- if product != empty -%}
+                <div aria-hidden="true" role="tooltip" class="s_tooltip  tooltip-{{block.settings.popup_alignment}}" >
+                  
+                  
+
+                  <div class="tooltip_box">
+                    <a href="{{ product.url }}" class="tooltip_url">
+
+                      <div class="tooltip_header">
+                        <div class="tooltip_wrap">
+                          <div class="title-des">
+                            {{ product.title }}
+                          </div>
+                          {%- if product.description != empty -%}
+                          <div class="des">
+                            {{ product.description | strip_html | truncatewords: 4 }}
+                          </div>
+                          {%- endif -%}
+                        </div>
+                        
+                        <div class="tooltip-arrow">
+                          <svg focusable="false" viewBox="0 0 24 24" class="tooltip-svg-icon" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="m16.415 12.0011-8.0012 8.0007-1.4141-1.4143 6.587-6.5866-6.586-6.5868L8.415 4l8 8.0011z"></path></svg>
+                        </div>
+
+                        
+                      </div>
+                      <div class="tooltip-price price">
+                        {%- liquid
+                          if product.title
+                            assign compare_at_price = product.compare_at_price
+                            assign price = product.price
+                            assign available = product.available
+                            assign variant = product.variants.first
+                          else
+                            assign compare_at_price = 1999
+                            assign price = 1999
+                            assign available = true
+                          endif
+
+                          if settings.currency_code_enabled
+                            assign money_price = price | money_with_currency
+                          else
+                            assign money_price = price | money
+                          endif
+                        -%}
+                          <span class="nprice">
+                            <span class="currency-symbol">{{ cart.currency.symbol }}</span>
+                            <span class="pprice">
+                              {%- if compare_at_price > price -%}
+                                {{ product.price_max | money_without_currency | replace: '.','<sup>.'  }}</sup>
+
+                              {% else %}
+                                {% comment %}{{ money_price }}{% endcomment %}
+                                {{ product.price | money_without_currency | replace: '.','<sup>.'  }}</sup>
+                              {%- endif -%}
+                            </span>
+                          </span>
+                          {%- if compare_at_price > price -%}
+                          <span class="tcompare">
+                            <span class="currency-symbol">{{ cart.currency.symbol }}</span>
+                            <span class="pprice">
+                       
+                                {{ compare_at_price | money_without_currency | replace: '.','<sup>.'  }}</sup>
+
+                            </span>
+                          </span>
+
+                          {%- endif -%}
+
+                        </div>
+
+                    </a>
+                  </div>
+
+                  
+
+                </div>
+                {%- endif -%}
+
+    					</div>
+
+
+
+ 
+
+    			{% endfor %}
+    		{% endif %}
+    	</div>
+      {% endif %}
+
+      {% if section.settings.image_m != blank %}
+      <div class="sl-image mobile" {% if section.settings.image %}style="  --aspect-ratio: {{ section.settings.image.aspect_ratio }}"{% endif %}>
+
+        {% if section.settings.image_m != blank %}
+          <img class="shop-image" src="{{ section.settings.image_m | img_url: '1920x' }}" alt="{{ section.settings.image_m.alt | escape }}">
+        {% else %}
+
+        {% endif %} 
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+              {%- assign product = all_products[block.settings.product] -%}
+
+              <div class="ShopThePoint_Area {% if block.settings.active_product == true %}active_always{% endif %}" style="left: {{ block.settings.horizontal_position_m }}%; top: {{ block.settings.vertical_position_m }}%" >
+                <a href="{{ product.url }}" class="ShopThePoint"></a>
+                
+
+                {%- if product != empty -%}
+                <div aria-hidden="true" role="tooltip" class="s_tooltip  tooltip-{{block.settings.popup_alignment_m}}" >
+                  
+                  
+
+                  <div class="tooltip_box">
+                    <a href="{{ product.url }}" class="tooltip_url">
+
+                      <div class="tooltip_header">
+                        <div class="tooltip_wrap">
+                          <div class="title-des">
+                            {{ product.title }}
+                          </div>
+                          {%- if product.description != empty -%}
+                          <div class="des">
+                            {{ product.description | strip_html | truncatewords: 4 }}
+                          </div>
+                          {%- endif -%}
+                        </div>
+                        
+                        <div class="tooltip-arrow">
+                          <svg focusable="false" viewBox="0 0 24 24" class="tooltip-svg-icon" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="m16.415 12.0011-8.0012 8.0007-1.4141-1.4143 6.587-6.5866-6.586-6.5868L8.415 4l8 8.0011z"></path></svg>
+                        </div>
+
+                        
+                      </div>
+                      <div class="tooltip-price price">
+                        {%- liquid
+                          if product.title
+                            assign compare_at_price = product.compare_at_price
+                            assign price = product.price
+                            assign available = product.available
+                            assign variant = product.variants.first
+                          else
+                            assign compare_at_price = 1999
+                            assign price = 1999
+                            assign available = true
+                          endif
+
+                          if settings.currency_code_enabled
+                            assign money_price = price | money_with_currency
+                          else
+                            assign money_price = price | money
+                          endif
+                        -%}
+                          <span class="nprice">
+                            <span class="currency-symbol">{{ cart.currency.symbol }}</span>
+                            <span class="pprice">
+                              {%- if compare_at_price > price -%}
+                                {{ product.price_max | money_without_currency | replace: '.','<sup>.'  }}</sup>
+
+                              {% else %}
+                                {% comment %}{{ money_price }}{% endcomment %}
+                                {{ product.price | money_without_currency | replace: '.','<sup>.'  }}</sup>
+                              {%- endif -%}
+                            </span>
+                          </span>
+                          {%- if compare_at_price > price -%}
+                          <span class="tcompare">
+                            <span class="currency-symbol">{{ cart.currency.symbol }}</span>
+                            <span class="pprice">
+                       
+                                {{ compare_at_price | money_without_currency | replace: '.','<sup>.'  }}</sup>
+
+                            </span>
+                          </span>
+
+                          {%- endif -%}
+
+                        </div>
+
+                    </a>
+                  </div>
+
+                  
+
+                </div>
+                {%- endif -%}
+
+              </div>
+
+
+              
+ 
+
+          {% endfor %}
+        {% endif %}
+      </div>
+      {% endif %}
+
+    
+   
+    </div>
+ 
+
+   
+</section>
+
+<script>
+  jQuery(document).ready(function($) {
+
+    var SPselector = $('[data-section-id="{{ section.id }}"] .desktop .ShopThePoint_Area');
+    var SPselectorArea = $('[data-section-id="{{ section.id }}"] .mobile .ShopThePoint_Area');
+    var SPselectorLink = $('[data-section-id="{{ section.id }}"] .mobile .ShopThePoint_Area > a');
+     
+    SPselector.hover(function() {
+       SPselector.addClass('hidden');
+       $(this).removeClass('hidden');
+       $(this).addClass('active')
+    }, function() {
+      /* Stuff to do when the mouse leaves the element */
+      SPselector.removeClass('hidden');
+      SPselector.removeClass('active');
+    });
+
+    SPselectorLink.click(function(e) {
+      /* Act on the event */
+      e.preventDefault();
+      SPselectorArea.removeClass('active_always')
+      SPselectorArea.removeClass('active')
+      SPselectorArea.addClass('hidden');
+      $(this).parent().toggleClass('hidden')
+      $(this).parent().toggleClass('active')
+
+    });
+
+  });
+</script>
+
+{% schema %}
+{
+  "name": {
+    "en": "Shop point"
+  },
+  "class": "shopify-section",
+  "max_blocks": 15,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop image"
+    }, 
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": {
+        "en": "Image"
+      }
+    },
+    {
+      "type": "header",
+      "content": "Mobile image"
+    }, 
+    {
+      "type": "image_picker",
+      "id": "image_m",
+      "label": {
+        "en": "Image"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": {
+        "en": "Product"
+      },
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "active_product",
+          "label": {
+            "en": "Active product"
+          },
+          "default": false,
+          "info": "Active product should be only one" 
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": {
+            "en": "Product"
+          } 
+        },
+        {
+          "type": "header",
+          "content": "Desktop positions"
+        }, 
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "label": "Horizontal position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "label": "Vertical position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "select",
+          "id": "popup_alignment",
+          "label": "Popup alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "header",
+          "content": "Mobile positions"
+        }, 
+        {
+          "type": "range",
+          "id": "horizontal_position_m",
+          "label": "Horizontal position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "vertical_position_m",
+          "label": "Vertical position",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 40
+        },
+        {
+          "type": "select",
+          "id": "popup_alignment_m",
+          "label": "Popup alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Shop point"
+      },
+      "category": {
+        "en": "product"
+      },
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
